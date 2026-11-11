@@ -1,0 +1,202 @@
+﻿@page
+@model ML_WebApp.Pages.AllPageModel
+@{
+    ViewData["Title"] = "All Media";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 sidebar bg-dark text-white p-3" style="margin-top: 24px;">
+            <form method="post" asp-page-handler="ApplyFilter">
+                <div class="filters">
+                    <h5 class="border-bottom pb-2">Filters</h5>
+                    <div class="filter-group mb-3">
+                        <h6 class="fw-bold">Type</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="filterSongs" asp-for="ShowSongs" />
+                            <label class="form-check-label" for="filterSongs">Songs</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="filterAlbums" asp-for="ShowAlbums" />
+                            <label class="form-check-label" for="filterAlbums">Albums</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="filterAudiobooks" asp-for="ShowAudiobooks" />
+                            <label class="form-check-label" for="filterAudiobooks">Audiobooks</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="filterPlaylists" asp-for="ShowPlaylists" />
+                            <label class="form-check-label" for="filterPlaylists">Playlists</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group mb-3">
+                        <h6 class="fw-bold">Genre</h6>
+                        <div class="genre-scroll" style="max-height: 200px; overflow-y: auto;">
+                            @foreach (var genre in Model.AvailableGenres)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           id="filterGenre_@genre"
+                                           name="SelectedGenres"
+                                           value="@genre"
+                                           checked="@(Model.SelectedGenres?.Contains(genre) ?? false)" />
+                                    <label class="form-check-label" for="filterGenre_@genre">@genre</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <button type="submit" class="create">Apply</button>
+                </div>
+            </form>
+
+            <div class="player-section mt-4">
+                <h5 class="text-white mb-3">Player</h5>
+
+                @if (Model.CurrentSelectedItem != null)
+                {
+                    @if (Model.CurrentSelectedItem is SharedLibraryML.MediaSection.Media media)
+                    {
+                        <div class="media-player">
+                            <div class="text-white mb-2">@media.GetTitle()</div>
+                            <audio controls class="w-100">
+                                <source src="@media.GetFilePath()" type="audio/mpeg">
+                                Your browser doesn't support audio
+                            </audio>
+                        </div>
+                    }
+                    else if (Model.CurrentSelectedItem is SharedLibraryML.CollectionSection.Collection collection)
+                    {
+                        <div class="collection-player">
+                            <div class="text-white mb-2">@collection.GetTitle()</div>
+                            <div class="small text-muted mb-3">
+                                Collection • @Model.SelectedAudioItems.Count items
+                            </div>
+
+                            <div class="playlist" style="max-height: 300px; overflow-y: auto;">
+                                @foreach (var item in Model.SelectedAudioItems)
+                                {
+                                    <div class="playlist-item py-2 border-bottom border-dark">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span>@item.GetTitle()</span>
+                                            <audio controls class="small-player">
+                                                <source src="@item.GetFilePath()" type="audio/mpeg">
+                                            </audio>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Select an item to play</p>
+                }
+            </div>
+        </div>
+
+        <div class="col-md-9 p-4">
+            <div class="search-bar mb-4">
+                <input type="text"
+                       placeholder="Search items..."
+                       class="field-input"
+                       id="itemsSearchInput"
+                       onkeyup="filterItems()" />
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="mediaGrid">
+                @foreach (var item in Model.AllItems)
+                {
+                    <div class="col">
+                        <div class="card h-100">
+                            @if (item is SharedLibraryML.MediaSection.Media media)
+                            {
+                                <div class="card-img-top media-image-container">
+                                    @if (media.GetImage() != null)
+                                    {
+                                        <img src="@Url.Content(media.GetImage())"
+                                             alt="@media.GetTitle()"
+                                             class="card-img-top" />
+                                    }
+                                    else
+                                    {
+                                        <div class="music-icon-placeholder"></div>
+                                    }
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@media.GetTitle()</h5>
+                                    <p class="card-text text-muted">@media.GetGenre()</p>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <form method="post" asp-page-handler="PlayMedia">
+                                        <input type="hidden" name="id" value="@media.GetIdDB()" />
+                                        <button type="submit" class="play-button">Play</button>
+                                    </form>
+                                </div>
+                            }
+                            else if (item is SharedLibraryML.CollectionSection.Collection collection)
+                            {
+                                <div class="card-img-top collection-image-container">
+                                    @if (collection.GetImage() != null)
+                                    {
+                                        <img src="@Url.Content(collection.GetImage())"
+                                             alt="@collection.GetTitle()"
+                                             class="card-img-top" />
+                                    }
+                                    else
+                                    {
+                                        <div class="music-icon-placeholder"></div>
+                                    }
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@collection.GetTitle()</h5>
+                                    <p class="card-text text-muted">@string.Join(", ", collection.GetGenres())</p>
+                                    <p class="card-text">@collection.GetMedias().Count items</p>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <form method="post" asp-page-handler="PlayCollection">
+                                        <input type="hidden" name="id" value="@collection.GetIdDB()" />
+                                        <button type="submit" class="play-button">Play</button>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function filterItems() {
+            const searchTerm = document.getElementById("itemsSearchInput").value.toLowerCase();
+            const cards = document.querySelectorAll('#mediaGrid .card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+                const isVisible = title.includes(searchTerm);
+                card.closest('.col').style.display = isVisible ? 'block' : 'none';
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById("itemsSearchInput");
+
+            searchInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    this.value = '';
+                    filterItems();
+                }
+            });
+
+            searchInput.focus();
+        });
+    </script>
+
+   
+}

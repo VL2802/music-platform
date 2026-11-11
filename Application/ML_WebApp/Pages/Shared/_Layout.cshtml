@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ML_WebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ML_WebApp.styles.css" asp-append-version="true" />
+</head>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <ul class="navbar-nav ms-auto">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    {
+                        @if (User.IsInRole("ARTIST"))
+                        {
+                            <li class="nav-item"><a class="nav-link" href="ArtistPage">Library</a></li>
+
+                        }
+                        @if (User.IsInRole("LISTENER"))
+                        {
+                            <li class="nav-item"><a class="nav-link" href="AllPage">Library</a></li>
+
+                        }
+                    }
+                }
+
+                else
+                {
+                    <li class="nav-item"><a class="nav-link" href="Index">Library</a></li>
+                }
+            </ul>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+               @if(User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("ARTIST"))
+                    {
+                        <div class="collapse navbar-collapse">
+
+
+                            <ul class="navbar-nav ms-auto">
+                                <li class="nav-item"><a class="nav-link" href="ProfilePage">Profile</a></li>
+
+                                <li class="nav-item"><a class="nav-link" href="LogOut">LogOut</a></li>
+                            </ul>
+                        </div>
+
+                    }
+                    @if (User.IsInRole("LISTENER"))
+                    {
+                        <div class="collapse navbar-collapse">
+                           
+
+                            <ul class="navbar-nav ms-auto">
+                            <li class="nav-item"><a class="nav-link" href="ListenerPage">Playlist</a></li>
+
+
+                                <li class="nav-item"><a class="nav-link" href="ProfilePage">Profile</a></li>
+
+                                <li class="nav-item"><a class="nav-link" href="LogOut">LogOut</a></li>
+
+                            </ul>
+                        </div>
+                    }
+                }
+            
+                else
+                {
+                    <div class="collapse navbar-collapse">
+
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item"><a class="nav-link" href="LogIn">Login</a></li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        
+        </nav>
+    </header>
+    <body>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    </body>
+
+
+<footer class="border-top footer text-muted navbar-dark bg-dark mt-auto">
+        <div class="container">
+            &copy; 2025 - ML_WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</html>

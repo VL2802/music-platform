@@ -1,0 +1,55 @@
+﻿@page
+@model ML_WebApp.Pages.LogInModel
+@{
+}
+<div class="form-wrapper">
+    <div class="login-form-card navbar-dark bg-dark">
+        <h2 class="card-header">Login</h2>
+        <div class=" card-body">
+            <form method="post">
+                <div>
+                    <label asp-for="UserLogin.Email">Email:</label>
+                    <span asp-validation-for="UserLogin.Email" class="text-danger"></span></br>
+                    <input asp-for="UserLogin.Email" class="field-input-reg-log" />
+                </div>
+                <div>
+                    <label asp-for="UserLogin.Password"> Password:</label>
+                    <span asp-validation-for="UserLogin.Password" class="text-danger"></span></br>
+                    <input asp-for="UserLogin.Password" type="password" class="field-input-reg-log" />
+                </div>
+
+                <div class="button-container">
+                    <button class="play-button align-content-center">Submit</button>
+
+                </div>
+                <div>
+                    <a class="Registrationlink" href="Register"> No account? Register here </a>
+                </div>
+
+                <div class="mt-2">
+                    <a asp-page="/ForgotPassword" class="Registrationlink">
+                        Forgot your password?
+                    </a>
+                </div>
+
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @if (!string.IsNullOrEmpty(ViewData["ActionLogger"] as string))
+                {
+                    <div class="alert alert-danger">
+                        @ViewData["ActionLogger"]
+                    </div>
+                }
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

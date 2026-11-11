@@ -1,0 +1,68 @@
+﻿@page
+@model ML_WebApp.Pages.RegisterModel
+@{
+}
+
+<div class="form-wrapper">
+
+        <div class="register-form-card navbar-dark bg-dark">
+        <h2 class="card-header">Registration</h2>
+        <div class=" card-body">
+            <form method="post">
+                <div class="email">
+                    <label asp-for="UserRegister.Email">Email</label>
+                    <span asp-validation-for="UserRegister.Email" class="text-danger"></span></br>
+                    <input asp-for="UserRegister.Email" class="field-input-reg-log" />
+                </div>
+                <div class="username">
+                    <label asp-for="UserRegister.Username">Username</label>
+                    <span asp-validation-for="UserRegister.Username" class="text-danger"></span></br>
+                    <input asp-for="UserRegister.Username" class="field-input-reg-log"/>
+                </div>
+                <div class="role">
+                    <label asp-for="UserRegister.Role">Role</label>
+                    
+                    <select asp-for="UserRegister.Role" class="field-input-reg-log">
+                        @foreach (var role in Enum.GetValues(typeof(SharedLibraryML.Role)))
+                        {
+                            <option value="@role">@role</option>
+                        }
+                    </select>
+                </div>
+           
+                <div class="phonenumber">
+                    <label asp-for="UserRegister.PhoneNumber">Phonenumber</label>
+                    <span asp-validation-for="UserRegister.PhoneNumber" class="text-danger"></span></br>
+                    <input asp-for="UserRegister.PhoneNumber" class="field-input-reg-log" />
+                </div>
+                <div class="password">
+                    <label asp-for="UserRegister.Password">Password</label>
+                    <span asp-validation-for="UserRegister.Password" class="text-danger"></span></br>
+                    <input asp-for="UserRegister.Password" type="password" class="field-input-reg-log" />
+                </div>
+                <div class="repeat-password">
+                    <label>Repeat your password</label>
+                    <span asp-validation-for="UserRegister.RepeatPassword" class="text-danger"></span></br>
+                    <input asp-for="UserRegister.RepeatPassword" type="password" class="field-input-reg-log" />
+                </div>
+
+                <div class="button-container">
+                    <button class="play-button align-content-center">Submit</button>
+
+                </div>
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @if (!string.IsNullOrEmpty(ViewData["ActionLogger"] as string))
+                {
+                    <div class="alert alert-danger">
+                        @ViewData["ActionLogger"]
+                    </div>
+                }
+            </form>
+        </div>
+
+        </div>
+        </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,101 @@
+﻿@page
+@model ML_WebApp.Pages.ProfilePageModel
+@{
+}
+ <div class="container mt-4">
+
+   <h2 class="card-header">Profile</h2>
+     <div class=" card-body">
+         <div class="row">
+            <div class="col-md-8" style="margin-bottom: 30px">
+
+                <form method="post" asp-page-handler="UpdateInfo" enctype="multipart/form-data">
+                    <input asp-for="EditableUser.Id" type="hidden" />
+
+                    <div class="image-section">
+                        <div id="previewContainer">
+                            @if (Model.EditableUser?.FileImage != null)
+                            {
+                                <img id="previewImage"
+                                        src="@Url.Content("~/Media/" + Model.EditableUser.FileImage.FileName)"
+                                        alt="Uploaded Image"
+                                        style="max-width:150px; max-height:150px; border-radius:10px;" />
+                            }
+                            else
+                            {
+                                <div id="musicIcon" class="musicIcon justify-content-center; border-top: 20 px;"></div>
+                            }
+                        </div>
+
+                            <label asp-for="EditableUser.FileImage" class="form-label">Upload an image</label>
+                            <input asp-for="EditableUser.FileImage" class="form-control" type="file" id="fileInput" onchange="updateFilePreview()" />
+                            <span asp-validation-for="EditableUser.FileImage"></span>
+                    </div>
+                    <div class="form-fields">
+                        <label asp-for="EditableUser.Username"> Username:</label>
+                        <span asp-validation-for="EditableUser.Username" class="text-danger"></span></br>
+                        <input asp-for="EditableUser.Username" type="text" placeholder="Username" class="field-input" />
+                        <label asp-for="EditableUser.Email">Email</label>
+                        <input asp-for="EditableUser.Email" type="text" class="field-input" readonly />
+                        <label asp-for="EditableUser.PhoneNumber">Phone Number</label>
+                        <span asp-validation-for="EditableUser.PhoneNumber" class="text-danger"></span></br>
+                        <input asp-for="EditableUser.PhoneNumber" type="text" placeholder="PhoneNumber" class="field-input" />
+                        <button type="submit" class="upload-btn">Update Info</button>
+
+                    </div>
+                </form>
+                @if (!string.IsNullOrEmpty(Model.ActionLogger as string))
+                {
+                    <div class="alert alert-danger">
+                        @Model.ActionLogger
+                    </div>
+                }
+            </div>
+            <div class="col-md-4">
+
+                <form method="post" asp-page-handler="UpdatePassword">
+                    <input asp-for="EditableUser.Id" type="hidden" />
+
+                    <h2 class="mt-4">Change Password</h2>
+                    <div class="form-fields">
+
+                        <label>Do you want to change the password, put the old one</label>
+                        <span asp-validation-for="PasswordUpdate.CurrentPassword" class="text-danger"></span></br>
+                        <input asp-for ="PasswordUpdate.CurrentPassword" type="password" placeholder="OldPassword" class="field-input" />
+                        <label>Create new password:</label>
+                        <span asp-validation-for="PasswordUpdate.NewPassword" class="text-danger"></span></br>
+                        <input type="password" asp-for="PasswordUpdate.NewPassword"placeholder="NewPassword" class="field-input" />
+                        <label>Repeat new password:</label>
+                        <span asp-validation-for="PasswordUpdate.RepeatNewPassword" class="text-danger"></span></br>
+                        <input type="password" asp-for="PasswordUpdate.RepeatNewPassword" placeholder="NewPassword" class="field-input" />
+                        <button type="submit" class="upload-btn">Change Password</button>
+
+                    </div>
+
+                   
+
+                </form>
+            </div>
+        </div>
+     </div>
+ </div>
+
+ @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+            function updateFilePreview() {
+                const input = document.querySelector('#fileInput');
+                const container = document.getElementById('previewContainer');
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        container.innerHTML = `
+                            <img id="previewImage" src="${e.target.result}" style="max-width:150px; border-radius:10px;" />`;
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+    </script>
+
+
+ }

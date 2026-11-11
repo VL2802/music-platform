@@ -1,0 +1,388 @@
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    background: url('/Media/Background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+
+
+
+.card {
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: 150px;
+    min-height: 250px;
+}
+
+.musicIcon {
+    background: url('/Media/MI4.jpg') no-repeat center;
+    background-size: cover;
+    width: 150px; 
+    height: 150px; 
+    border-radius: 10px;
+    display: block;
+    justify-self: center;
+    margin-bottom: 15px;
+}
+
+
+.play-button {
+    background: black;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    
+    cursor: pointer;
+    width: 150px; 
+    height: 34px;
+    margin-top: 10px; 
+}
+.play-button:hover {
+    background-color: dimgrey; 
+}
+
+.songIcon {
+    background: url('/Media/playa.webp') no-repeat center center;
+    background-size: cover;
+    width: 30px; 
+    height: 30px; 
+    border-radius: 10px;
+    display: block;
+}
+
+.song-item {
+    display: flex; 
+    align-items: center; 
+    background: black;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    height: 40px; 
+}
+    .song-item:hover {
+        background-color: dimgrey;
+    }
+
+.song-button {
+    margin-right: 10px;
+    border-color: white;
+    background: transparent; 
+    box-shadow: none;
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+.login-form-card, .register-form-card {
+    display: inline-table;
+    margin-block: 50px;
+    border:20px;
+    border-radius: 10px;
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+.card-header {
+    justify-self:center;
+}
+
+.button-container{
+    justify-self: center;
+}
+
+/*     artist page
+ */ 
+.placement-artist-form {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.sidebar {
+    flex: 1;
+    padding: 20px;
+    border-radius: 20px;
+    height: fit-content;
+}
+
+    .sidebar h2 {
+        margin-top: 0;
+        font-size: 1.5rem;
+    }
+
+    .sidebar .create {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: white;
+        color: #ff4da6;
+        font-weight: bold;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .sidebar .create:hover {
+            background-color: #ff4da6;
+            color: white;
+        }
+
+.main-content-items {
+    flex: 3;
+}
+
+.form-control {
+    background-color: unset;
+    font: caption;
+    color: white;
+    border-style: none;
+}
+
+.search-bar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    .search-bar input {
+        width: 60%;
+        padding: 10px 20px;
+        border-radius: 20px;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+    }
+
+.media-list {
+    padding: 20px;
+    border-radius: 20px;
+    height: 350px;
+    box-sizing: content-box;
+    overflow-y: scroll;
+}
+
+.media-list-in-collection-form {
+    padding: 5px;
+    border-radius: 20px;
+    height: 190px;
+}
+
+.media-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1c1c1c;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+}
+
+    .media-item span {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+.media-item-in-collection-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1c1c1c;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-right: 10px;
+}
+
+    .media-item-in-collection-form span {
+        font-size: 0,5rem;
+    }
+
+.actions button {
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin-left: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    gap: 10px; 
+    margin-top: 5px;
+}
+
+    .actions button:hover {
+        background-color: #ff4da6;
+        color: white;
+    }
+
+
+
+    .actions form,
+    .actions button {
+        display: inline-block;
+        margin: 0;
+    }
+
+
+/*         modal
+ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: #2b2b2b;
+    border-radius: 30px;
+    padding: 40px;
+    color: white;
+    width: 700px;
+    max-width: 90%;
+}
+
+.media-form, .collection-form {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.image-section {
+    flex: 1;
+    text-align: center;
+}
+
+
+
+.upload-btn {
+    background: white;
+    color: black;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .upload-btn:hover {
+        background: #ff4da6;
+        color: white;
+    }
+
+.form-fields {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.field-input {
+    background: #1c1c1c;
+    border: 2px solid white;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 1rem;
+}
+
+.field-input-reg-log {
+    background: #1c1c1c;
+    border: 2px solid white;
+    color: white;
+    padding: 5px;
+    border-radius: 20px;
+    font-size: 0,5rem;
+    justify-items: center;
+}
+
+.modal-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancel-btn, .save-btn {
+    background: white;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+    .cancel-btn:hover, .save-btn:hover {
+        background: #ff4da6;
+        color: white;
+    }
+
+
+.custom-audio-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: white;
+    border: none;
+    font-size: 24px;
+    color: black;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .custom-audio-button:hover {
+        background-color: #7e22ce; /* Purple */
+        color: white;
+    }
+
+/*audio {
+    display: none;
+}*/
